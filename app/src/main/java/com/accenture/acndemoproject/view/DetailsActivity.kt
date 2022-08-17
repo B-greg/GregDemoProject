@@ -9,7 +9,6 @@ import com.accenture.acndemoproject.R
 
 class DetailsActivity : AppCompatActivity(), DetailsFragmenCallbackInterface {
 
-
     companion object{
         fun startActivity(context: Context, user: User) {
             val intent = Intent(context, DetailsActivity::class.java)

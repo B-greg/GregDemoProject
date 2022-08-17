@@ -6,33 +6,60 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.accenture.acndemoproject.R
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainViewInterface, UserAdapterInterface {
 
 
-    private val onButtonClickLister = View.OnClickListener{
-        DetailsActivity.startActivity(it.context, User("gregoire", "Barret"))
-    }
+    private lateinit var presenter: MainPresenter
+
+    private lateinit var usersRecycleView: RecyclerView
+
+    private var userAdapter: UserAdapter = UserAdapter(arrayListOf(), this)
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_main)
-        val myText = findViewById<TextView>(R.id.textView)
-        val myButton = findViewById<Button>(R.id.button)
+        presenter = MainPresenter()
 
-        myButton.text = "click on me"
 
-        myButton.setOnClickListener(onButtonClickLister)
+        usersRecycleView = findViewById(R.id.users_recycleview)
+        usersRecycleView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        usersRecycleView.adapter = userAdapter
+
+        presenter.setView(this)
+
+
+
+
     }
 
     override fun onStart() {
         super.onStart()
+        presenter.initView()
+
     }
 
     override fun onResume() {
         super.onResume()
+    }
+
+
+    override fun openDetailsActivity() {
+        DetailsActivity.startActivity(this, User("gregoire", "Barret"))
+    }
+
+    override fun onUserClick(user: User) {
+        presenter.onUserClick()
+    }
+
+    override fun displayUsers(users: List<User>) {
+        userAdapter.setUsersList(users)
+        userAdapter.addUserList(User("test", "test"))
     }
 
     override fun onPause() {
@@ -45,6 +72,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        presenter.onDestroy()
     }
 
 
