@@ -39,7 +39,7 @@ class UserAdapter(private var _users: ArrayList<User>, private val callback: Use
         notifyDataSetChanged()
     }
 
-    fun addUserList(user: User){
+    fun addUser(user: User){
         _users.add(user)
         notifyItemChanged(_users.size)
     }

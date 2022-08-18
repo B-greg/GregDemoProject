@@ -5,4 +5,6 @@ interface MainViewInterface {
     fun openDetailsActivity()
 
     fun displayUsers(users: List<User>)
+
+    fun addUser(user: User)
 }

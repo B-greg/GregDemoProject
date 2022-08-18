@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.accenture.acndemoproject.R
+import com.accenture.acndemoproject.domain.UsersUseCase
 
 
 interface DetailsFragmenCallbackInterface{
@@ -18,6 +19,8 @@ interface DetailsFragmenCallbackInterface{
 class DetailsFragment(val user: User?) : Fragment() {
 
     private lateinit var backButton: Button
+    private lateinit var networkImageView: NetworkImageView
+
 
     private  var callbackInterface: DetailsFragmenCallbackInterface? = null
 
@@ -37,10 +40,12 @@ class DetailsFragment(val user: User?) : Fragment() {
 
         val message = view.findViewById<TextView>(R.id.message)
         backButton= view.findViewById(R.id.buttonback)
+        networkImageView = view.findViewById(R.id.imageView)
         message.text = user?.name
 
 
         backButton.setOnClickListener { callbackInterface?.onBackToPreviousActivity() }
+        networkImageView.loadByUrl("https://i.natgeofe.com/n/8071137b-2890-4ded-8420-41e3485b1eb9/domestic-cat.jpg?w=374&h=249")
     }
 
     override fun onAttach(context: Context) {

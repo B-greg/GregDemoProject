@@ -26,15 +26,11 @@ class MainActivity : AppCompatActivity(), MainViewInterface, UserAdapterInterfac
         setContentView(R.layout.activity_main)
         presenter = MainPresenter()
 
-
         usersRecycleView = findViewById(R.id.users_recycleview)
         usersRecycleView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         usersRecycleView.adapter = userAdapter
 
         presenter.setView(this)
-
-
-
 
     }
 
@@ -59,7 +55,11 @@ class MainActivity : AppCompatActivity(), MainViewInterface, UserAdapterInterfac
 
     override fun displayUsers(users: List<User>) {
         userAdapter.setUsersList(users)
-        userAdapter.addUserList(User("test", "test"))
+        userAdapter.addUser(User("test", "test"))
+    }
+
+    override fun addUser(user: User) {
+        userAdapter.addUser(user)
     }
 
     override fun onPause() {
