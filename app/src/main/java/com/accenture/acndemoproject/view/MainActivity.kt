@@ -8,12 +8,15 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.accenture.acndemoproject.MyApplication
 import com.accenture.acndemoproject.R
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainViewInterface, UserAdapterInterface {
 
 
-    private lateinit var presenter: MainPresenter
+    @Inject
+    lateinit var presenter: MainPresenter
 
     private lateinit var usersRecycleView: RecyclerView
 
@@ -23,8 +26,8 @@ class MainActivity : AppCompatActivity(), MainViewInterface, UserAdapterInterfac
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (application as MyApplication).appComponent.injectMainActivity(this)
         setContentView(R.layout.activity_main)
-        presenter = MainPresenter()
 
         usersRecycleView = findViewById(R.id.users_recycleview)
         usersRecycleView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

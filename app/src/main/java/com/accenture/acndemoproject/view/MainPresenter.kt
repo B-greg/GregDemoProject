@@ -4,12 +4,11 @@ import android.util.Log
 import com.accenture.acndemoproject.domain.UsersUseCase
 import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.observers.DisposableSingleObserver
+import javax.inject.Inject
 
-class MainPresenter {
+class MainPresenter @Inject constructor(val userUseCase: UsersUseCase){
 
     private var _view: MainViewInterface? = null
-
-    private val userUseCase = UsersUseCase()
 
 
     private var counter = 0
@@ -19,8 +18,7 @@ class MainPresenter {
     }
 
     fun initView(){
-        //userUseCase.getListOfUsers(UserSubscriber())
-        userUseCase.getUser(UserSubscriber())
+        userUseCase.getListOfUsers(UsersSubscriber())
         //_view?.displayUsers(users)
     }
 
@@ -34,6 +32,7 @@ class MainPresenter {
 
     inner class UsersSubscriber: DisposableObserver<List<User>>() {
         override fun onNext(users: List<User>) {
+            Log.d("UsersSubscriber", users.get(0).toString())
             _view?.displayUsers(users)
         }
 

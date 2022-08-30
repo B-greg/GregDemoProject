@@ -7,8 +7,9 @@ import com.accenture.acndemoproject.view.User
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 
-class UsersUseCase(val repository: UserRepositoryInterface = UserRepository(), val mapper: UserMapper = UserMapper()) {
+class UsersUseCase @Inject constructor(val repository: UserRepositoryInterface, val mapper: UserMapper) {
 
     fun getListOfUsers(observer: Observer<List<User>>) {
         repository.getUsers()
@@ -19,11 +20,11 @@ class UsersUseCase(val repository: UserRepositoryInterface = UserRepository(), v
     }
 
 
-    fun getUser(observer: Observer<User>) {
-        repository.getUser()
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .map{ userEntity -> mapper.mapUserEntityToUser(userEntity) }
-            .subscribe(observer)
-    }
+//    fun getUser(observer: Observer<User>) {
+//        repository.getUser()
+//            .subscribeOn(Schedulers.newThread())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .map{ userEntity -> mapper.mapUserEntityToUser(userEntity) }
+//            .subscribe(observer)
+//    }
 }

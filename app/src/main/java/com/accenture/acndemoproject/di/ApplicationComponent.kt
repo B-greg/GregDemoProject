@@ -9,7 +9,7 @@ import javax.inject.Singleton
 @Component(modules = [ApplicationModule::class])
 interface ApplicationComponent {
 
-     fun injectListActivity(activity: MainActivity)
+     fun injectMainActivity(activity: MainActivity)
 
 
 }
